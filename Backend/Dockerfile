@@ -14,6 +14,6 @@ COPY Startup.cs .
 
 # RUN dotnet publish -c Release -o /app --no-restore
 
-EXPOSE 5000
+EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "run"]
+CMD ASPNETCORE_URLS=http://0.0.0.0:8080  dotnet  run

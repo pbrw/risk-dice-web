@@ -21,6 +21,8 @@ import ChanceDisplayProps from "./ChanceDisplay";
 import ChanceDisplay from "./ChanceDisplay";
 import { API_URL } from "../Config";
 import DiceForm from "./DiceForm";
+import AttackerTypeForm from "./AttackerTypeForm";
+import DefenderTypeForm from "./DefenderTypeForm";
 
 const theme = createTheme();
 
@@ -29,10 +31,12 @@ export default function SignUp() {
   const [defendUnits, setDefendUnits] = React.useState<number | null>(null);
   const [prob, setProb] = React.useState<number | null>(null);
   const [BB, setBB] = React.useState<boolean>(true);
+  const [attackerType, setAttackerType] = React.useState<string>("normal");
+  const [defenderType, setDefenderType] = React.useState<string>("normal");
 
   const calc = (attack: number, defend: number) => {
     fetch(
-      `${API_URL}/winChance?attackingTerritory=${attack}&defendingTerritory=${defend}&trueRandom=${!BB}`,
+      `${API_URL}/winChance?attackingTerritory=${attack}&defendingTerritory=${defend}&trueRandom=${!BB}&attackerType=${attackerType}&defenderType=${defenderType}`,
       {
         method: "GET",
         credentials: "include",
@@ -50,7 +54,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: "20px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -77,6 +81,14 @@ export default function SignUp() {
               }}
             />
             <DiceForm bb={BB} onChange={(val) => setBB(val)} />
+            <AttackerTypeForm
+              type={attackerType}
+              onChange={(val) => setAttackerType(val)}
+            />
+            <DefenderTypeForm
+              type={defenderType}
+              onChange={(val) => setDefenderType(val)}
+            />
             <ChanceDisplay value={prob} />
             <Button
               type="submit"

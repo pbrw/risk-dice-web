@@ -15,7 +15,9 @@ namespace Supermarket.API.Controllers
     {
         public int attackingTerritory { get; set; }
         public int defendingTerritory { get; set; }
-        public bool trueRandom {get; set; }
+        public bool trueRandom { get; set; }
+        public string attackerType { get; set; }
+        public string defenderType { get; set; }
     }
 
     [Route("/winChance")]
@@ -38,7 +40,20 @@ namespace Supermarket.API.Controllers
         {
             var res = new WinChance();
             var balanceConfig = query.trueRandom ? null : BalanceConfig.Default;
-            var winChanceInfo = WinChanceCache.Get(1000, RoundConfig.Default, balanceConfig);
+            var roundConfig = RoundConfig.Default;
+            if (query.defenderType == "capital") {
+                roundConfig.ApplyAugments(DiceAugment.None, DiceAugment.OnCapital);
+            }
+            if (query.defenderType == "zombie") {
+                roundConfig.ApplyAugments(DiceAugment.None, DiceAugment.IsZombie);
+            }
+            if (query.attackerType == "capital") {
+                roundConfig.ApplyAugments(DiceAugment.OnCapital, DiceAugment.None);
+            }
+            if (query.attackerType == "zombie") {
+                roundConfig.ApplyAugments(DiceAugment.IsZombie, DiceAugment.None);
+            }
+            var winChanceInfo = WinChanceCache.Get(1000, roundConfig, balanceConfig);
             winChanceInfo.Calculate();
     
             Console.WriteLine(winChanceInfo.WinChances[7, 4]);

@@ -10,12 +10,12 @@ import {
 import React from "react";
 // import { Button } from "react-bootstrap";
 
-type DiceFormProps = {
-  bb: boolean;
-  onChange: (val: boolean) => void;
+type AttackerFormProps = {
+  type: string;
+  onChange: (val: string) => void;
 };
 
-export default function DiceForm(props: DiceFormProps) {
+export default function AttackerTypeForm(props: AttackerFormProps) {
   //   const [attackUnits, setAttackUnits] = React.useState<number | null>(null);
   return (
     <Grid container spacing={1} sx={{ align: "center", mt: "10px" }}>
@@ -30,7 +30,7 @@ export default function DiceForm(props: DiceFormProps) {
             color: "text.secondary",
           }}
         >
-          Dice Rolls
+          Attacker Type
         </Box>
       </Typography>
       {/* <Typography
@@ -51,19 +51,20 @@ export default function DiceForm(props: DiceFormProps) {
         sx={{ width: "100%", maxWidth: 300, textAlign: "center", m: "auto" }}
       >
         <ToggleButtonGroup
-          size="small"
           color="primary"
-          value={props.bb ? "bb" : "tr"}
+          size="small"
+          value={props.type}
           // value={alignment}
           exclusive
           onChange={(event, na) => {
-            props.onChange(na === "bb");
+            props.onChange(na);
           }}
           aria-label="Platform"
           sx={{ m: "auto", display: "block", p: "8px" }}
         >
-          <ToggleButton value="bb">Balanced Blitz</ToggleButton>
-          <ToggleButton value="tr">True Random</ToggleButton>
+          <ToggleButton value="normal">Normal</ToggleButton>
+          <ToggleButton value="capital">Capital</ToggleButton>
+          <ToggleButton value="zombie">Zombie</ToggleButton>
         </ToggleButtonGroup>
       </Box>
     </Grid>

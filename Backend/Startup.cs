@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 // using Supermarket.API.Services;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 
 // namespace Supermarket.API.Controllers.Config
@@ -92,7 +93,11 @@ namespace Supermarket.API
             app.Use(async (context, next) =>
             {
                 // var origin = HttpContext.Current.Request.Headers.GetValues("Origin").FirstOrDefault("lel");
-                context.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:3000");
+                // context.Response.Headers.Add("Access-Control-Allow-Origin", "null");
+                var origin = context.Request.Headers.Origin;
+                // var origin = values.FirstOrDefault();// Do stuff with the values... probably .FirstOrDefault()
+                context.Response.Headers.Add("Access-Control-Allow-Origin", origin);
+                // context.Response.Headers.Add("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
                 context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
                 await next();
             });

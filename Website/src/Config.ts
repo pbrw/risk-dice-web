@@ -1,12 +1,12 @@
 export const API_URL =
   process.env.NODE_ENV === "production"
-    ? "http://api.openwars.net"
-    : "http://localhost:5000";
+    ? "http://127.0.0.1:8080"
+    : "http://localhost:8080";
 
 export const SERVER_URL =
   process.env.NODE_ENV === "production"
     ? "http://openwars.net"
-    : "http://localhost:3000";
+    : "http://localhost:8080";
 
 export const GAME_URL = `${SERVER_URL}/game`;
 
