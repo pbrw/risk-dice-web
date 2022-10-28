@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0.402-jammy-amd64
+FROM mcr.microsoft.com/dotnet/sdk:6.0.402-jammy
 
 WORKDIR /usr/src/api
 
